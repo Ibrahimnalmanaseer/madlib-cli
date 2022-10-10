@@ -1,19 +1,28 @@
 import re
 
+def welcome():
+
+    '''
+    :print: game's welcome message 
+    
+    '''
+    print( 
+         
+    '''
+    
+    ###               Welcome to Mad libs game                  ###
+    ***  Mad libs is a funny game , place your words in a story ***
+    ***       Please answer the questions and press Enter       ***     
+              
+    ''')
 
 
-def read_template():
-
-    print ('Welcome to madlib game')
-
-# It was a {Adjective} and {Adjective} {Noun}.
-
-# I the {Adjective} and {Adjective} {A First Name} have {Past Tense Verb} {A First Name}'s {Adjective} sister and plan to steal her {Adjective} {Plural Noun}!
-
-# What are a {Large Animal} and backpacking {Small Animal} to do? Before you can help {A Girl's Name}, you'll have to collect the {Adjective} {Plural Noun} and {Adjective} {Plural Noun} that open up the {Number 1-50} worlds connected to A {First Name}'s Lair. There are {Number} {Plural Noun} and {Number} {Plural Noun} in the game, along with hundreds of other goodies for you to find.
 
 def user_input_dark():
+    '''
+    :return: tuple of user inputs 
 
+    '''
 
     adj_1 = input("Adjective ==> ")
     adj_2 = input("Adjective ==> ")
@@ -21,8 +30,13 @@ def user_input_dark():
     return(adj_1,adj_2,noun)
 
 
+
 def user_input_story():
 
+    '''
+    :return: tuple of user inputs 
+
+    '''
 
     adj_1 = input("Adjective ==> ")
     adj_2 = input("Adjective ==> ")
@@ -31,47 +45,89 @@ def user_input_story():
     first_name_1 = input("First Name ==> ")
     adj_3 = input("Adjective ==> ")
     adj_4 = input("Adjective ==> ")
-    plural_noun = input("Plural Noun ==> ")
-    
+    plural_noun_1 = input("Plural Noun ==> ")
+    large_animal = input("Large Animal ==> ")
+    small_animal = input("Small Animal ==> ")
+    girl_name = input("Girl Name ==> ")
+    adj_5 = input("Adjective ==> ")
+    plural_noun_2 = input("Plural Noun ==> ")
+    adj_6 = input("Adjective ==> ")
+    plural_noun_3 = input("Plural Noun ==> ")
+    number_1 = input("Number from 1 - 50 ==> ")
+    first_name_2 = input("First Name ==> ")
+    number_2 = input("Number 1 - 50 ==> ")
+    plural_noun_4 = input("Plural Noun ==> ")
+    number_3 = input("Number 1 - 50 ==> ")
+    plural_noun_5 = input("Plural Noun ==> ")
+  
+
+
+
+    return(adj_1,adj_2,first_name_1,past_verb,first_name_1,adj_3,adj_4,plural_noun_1,large_animal,small_animal,girl_name,adj_5,plural_noun_2,adj_6,plural_noun_3,number_1,first_name_2,number_2,plural_noun_4,number_3,plural_noun_5)
+
 def read_template(path):
+    '''
+    :param file path
+    :return : file content    
+    
+    '''
 
-    if path == False:
-
-        print('not found ')
-
-    try:
-        with open(path) as file:
+    with open(path) as file:
 
             content=file.read()
             return content
 
-    except FileNotFoundError:
-
-        return 'file not found'
-
-# read_template('./assets/dark_and_stormy_night_template.txt')
-
-
-
-
-
+    
 def parse_template(content):
 
-   
+    '''
+    :param string 
+    :return : string stripped of values that inside curly brackets
+    :return : tuple of stripped values
+    
+    '''
     stripped=re.sub("\{.*?\}","{}",content)
     parts = re.findall('{(.+?)}',content)
    
     return [stripped,tuple(parts)]
 
-# parse_template("It was a {Adjective} and {Adjective} {Noun}.")
 
-# print(parse_template(read_template('./assets/dark_and_stormy_night_template.txt'))[0])
 
 
 def merge(stripped,value):
+
+    '''
+    :param string with empty curly brackets
+    :param tuple
+    :return : merge tuple items inside a string
+    
+    '''
 
     data=stripped.format(*value)
 
     return data
 
-merge(parse_template(read_template('./dark_and_stormy_night_template.txt'))[0],user_input_dark())
+
+def write_response(paragraph):
+    
+    
+    '''
+    :param string
+   
+    :return : create and write in file, print file content
+    
+    '''
+
+
+
+    with open('./assets/response.txt','w') as file:
+
+        file.write(paragraph)
+    with open('./assets/response.txt','r') as f:
+        print (f'\n*********************************************\n {f.read()}')
+
+
+
+welcome()
+
+write_response(merge(parse_template(read_template('./assets/story.txt'))[0],user_input_story()))
