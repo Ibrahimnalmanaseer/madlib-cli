@@ -6,7 +6,7 @@
 
 ### Links and Resources
 
-- [pull request](https://github.com/Ibrahimnalmanaseer/madlib-cli/pull/1)
+- [pull request](https://github.com/Ibrahimnalmanaseer/pythonic-garage-band/pull/1)
 
 
 ### Setup
